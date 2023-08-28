@@ -296,7 +296,6 @@ class MainScreen: Screen {
                         Text(
                             text = screenModel.length.toString(),
                             textAlign = TextAlign.End,
-                            color = if (lengthFocus) MaterialTheme.colorScheme.primary else Color.Unspecified,
                             modifier = Modifier
                                 .widthIn(min = (LocalDensity.current.fontScale * 25).dp)
                         )

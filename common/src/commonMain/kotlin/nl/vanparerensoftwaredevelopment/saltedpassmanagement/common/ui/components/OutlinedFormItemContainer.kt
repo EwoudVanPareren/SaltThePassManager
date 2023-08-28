@@ -23,49 +23,49 @@ fun OutlinedFormItemContainer(
     onClick: (() -> Unit)? = null,
     contents: @Composable () -> Unit
 ) {
+    val colorScheme = MaterialTheme.colorScheme
+
     var containsFocus by remember { mutableStateOf(false) }
     val showFocused = overrideFocusVisualState ?: containsFocus
-    Box(
-        modifier.padding(vertical = 5.dp)
-            .onFocusChanged {
-                containsFocus = it.isFocused || it.hasFocus
-            }
-    ) {
+
+    CompositionLocalProvider(LocalContentColor.provides(colorScheme.onSurfaceVariant)) {
         Box(
-            modifier = Modifier
-                .padding(vertical = 5.dp)
-                .border(
-                    width = if (showFocused) {
-                        TextFieldDefaults.FocusedBorderThickness
-                    } else {
-                        TextFieldDefaults.UnfocusedBorderThickness
-                    },
-                    color = if (showFocused) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.outline
-                    },
-                    shape = TextFieldDefaults.outlinedShape
-                )
-                .let {
-                    if (onClick != null) {
-                        it.clickable(onClick = onClick)
-                    } else {
-                        it
-                    }
+            modifier.padding(vertical = 5.dp)
+                .onFocusChanged {
+                    containsFocus = it.isFocused || it.hasFocus
                 }
-                .padding(vertical = 5.dp)
         ) {
-            contents()
-        }
-        if (label != null) {
-            ProvideTextStyle(
-                MaterialTheme.typography.bodySmall.let {
-                    if (showFocused) {
-                        it.copy(color = MaterialTheme.colorScheme.primary)
-                    } else it
-                }
+            Box(
+                modifier = Modifier
+                    .padding(vertical = 5.dp)
+                    .border(
+                        width = if (showFocused) {
+                            TextFieldDefaults.FocusedBorderThickness
+                        } else {
+                            TextFieldDefaults.UnfocusedBorderThickness
+                        },
+                        color = when {
+                            showFocused -> colorScheme.primary
+                            else -> colorScheme.outline
+                        },
+                        shape = TextFieldDefaults.outlinedShape
+                    )
+                    .let {
+                        if (onClick != null) {
+                            it.clickable(onClick = onClick)
+                        } else {
+                            it
+                        }
+                    }
+                    .padding(vertical = 5.dp)
             ) {
+                contents()
+            }
+            if (label != null) {
+                val labelColor = when {
+                    showFocused -> colorScheme.primary
+                    else -> colorScheme.onSurfaceVariant
+                }
                 Box(
                     modifier = Modifier
                         .offset(x = 12.dp, y = (-4).dp)
@@ -75,10 +75,14 @@ fun OutlinedFormItemContainer(
                         )
                         .padding(horizontal = 4.dp)
                 ) {
-                    label()
+                    CompositionLocalProvider(
+                        LocalContentColor.provides(labelColor),
+                        LocalTextStyle.provides(MaterialTheme.typography.bodySmall)
+                    ) {
+                        label()
+                    }
                 }
             }
         }
     }
-
 }
