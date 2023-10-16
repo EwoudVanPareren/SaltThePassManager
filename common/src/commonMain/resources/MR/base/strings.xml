@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="app_title">SaltThePass Manager</string>
+    <string name="generic_back">Back</string>
+
     <string name="master_password_label">Master Password</string>
     <string name="master_password_help">Your <b>Master Password</b> is a password that you keep safe and <b>only</b> use on SaltThePass.\nIdeally, you should never disclose it to anyone else, or even write it down.</string>
     <string name="domain_name_label">Domain Name</string>
-    <string name="domain_name_help">For simplicity, the <b>Domain Name</b> you use should match the website you're generating a password for.</string>
+    <string name="domain_name_help">For simplicity, the <b>Domain Name</b> you use should match the website you\'re generating a password for.</string>
     <string name="domain_phrase_label">Domain Phrase</string>
     <string name="domain_phrase_help">The <b>Domain Phrase</b> is an <b>optional</b> field that can be used to differentiate multiple accounts/passwords on the same website.</string>
     <string name="version_name_label">Version Name</string>
@@ -15,24 +17,54 @@
     <string name="password_length_help">The <b>Password Length</b> is the target length of the generated password.\nThe maximum possible length depends on the hashing function used.</string>
     <string name="salted_password_label">Salted Password</string>
     <string name="salted_password_help_basic">The <b>Salted Password</b> is the output of your Master Password, combined with the Domain Name and Domain Phrase (optional).</string>
-    <string name="salted_password_help_advanced">The <b>Salted Password</b> is the output of your Master Password, combined with the Domain Name, Domain Phrase (optional) and Version Name (optional.\nThe Password Appendix (optional) is used at the end.</string>
+    <string name="salted_password_help_advanced">The <b>Salted Password</b> is the output of your Master Password, combined with the Domain Name, Domain Phrase (optional) and Version Name (optional).\nThe Password Appendix (optional) is used at the end.</string>
     <string name="copy_password_label">Copy password</string>
     <string name="clear_clipboard_label">Clear clipboard</string>
-    <string name="clear_form_label">Clear form</string>
+    <string name="clear_form_all_label">Clear form (all)</string>
+    <string name="clear_form_account_label">Clear form (account)</string>
     <string name="advanced_settings_label">Advanced Settings</string>
     <string name="hashing_function_label">Hashing Function</string>
+    <string name="hashing_function_help">SaltThePass uses a cryptographic hash function as part of the algorithm that generates your Salted Password. Each hash function will provide different output, so if you ever change the hash function you use, you will get a different Salted Password. By default, Keccak512 is used.</string>
     <string name="help_dot_description">More info</string>
+    <string name="domain_suggestions_open_tooltip">Open suggestions...</string>
+    <string name="domain_phrase_suggestions_open_tooltip">Open suggestions...</string>
+    <string name="account_update_action_label">Update</string>
+    <string name="account_save_action_label">Save</string>
+    <string name="account_delete_action_label">Delete</string>
+    <string name="account_default_label">Default (empty)</string>
+    <string name="hashing_function_sha3_note">On the original SaltThePass, the hashing algorithm labeled SHA-3 is really Keccak512. This is due to some historical confusion between the two.\nIn this app, use Keccak512 to match SaltThePass.com\'s SHA-3.</string>
+    <string name="main_screen_about_tooltip">About</string>
+    <string name="main_screen_settings_tooltip">Settings</string>
+
+    <string name="about_screen_title">About</string>
+    <string name="about_text">SaltThePass Manager uses hashing algorithms to generate passwords based on a master password, without the need to store the passwords themselves.\nSaltThePass Manager is based on the original SaltThePass.com web app by Nic Jansma. Visit SaltThePass.com for more information about the SaltThePass algorithm and how it can be used.</string>
+    <string name="about_license_copyright">SaltThePass Manager is an open source application with an MIT License. Copyright (c) 2023 Ewoud van Pareren.</string>
+    <string name="about_link_repository_label">Source Code</string>
+    <string name="about_link_repository_url">https://github.com/EwoudVanPareren/SaltThePassManager</string>
+    <string name="about_link_saltthepass_label">SaltThePass.com</string>
+    <string name="about_link_saltthepass_url">https://saltthepass.com</string>
+
 
     <string name="configs_title">Configuration</string>
     <string name="config_theme_label">Theme</string>
     <string name="config_density_label">UI Density</string>
+    <string name="config_close_to_tray_label">Close to tray</string>
+    <string name="config_close_to_tray_description">When closing the window, keep the application alive in the system tray</string>
+    <string name="config_tray_icon_color">Tray icon color</string>
 
     <string name="theme_light_label">Light</string>
     <string name="theme_dark_label">Dark</string>
     <string name="theme_system_label">Match System</string>
 
+    <string name="tray_icon_color_light_label">Light</string>
+    <string name="tray_icon_color_dark_label">Dark</string>
+
     <string name="density_level_tiny_label">Tiny</string>
     <string name="density_level_small_label">Small</string>
     <string name="density_level_normal_label">Normal</string>
     <string name="density_level_large_label">Large</string>
+
+    <string name="tray_menu_item_open_label">Open</string>
+    <string name="tray_menu_item_minimize_to_tray">Minimize to tray</string>
+    <string name="tray_menu_item_close">Close</string>
 </resources>

@@ -1,27 +1,27 @@
 plugins {
-    id("com.android.library")
     kotlin("multiplatform")
     kotlin("plugin.serialization")
+    id("com.android.library")
 }
 
-group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
+group = "nl.vanparerensoftwaredevelopment.saltedpassmanager"
 version = "1.0-SNAPSHOT"
 
 kotlin {
     android()
     jvm("desktop") {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
     sourceSets {
         val coroutinesVersion = extra["coroutines.version"] as String
+        val serializationVersion = extra["serializationLibraryVersion"] as String
+        val loggingVersion = extra["kotlinLoggingVersion"] as String
+
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
-                implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
-                api("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.5")
-                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-                api("io.github.xxfast:kstore:0.6.0")
-                api("io.github.xxfast:kstore-file:0.6.0")
+                implementation("io.github.microutils:kotlin-logging-jvm:$loggingVersion")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
             }
         }
         val commonTest by getting {
@@ -29,11 +29,7 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
-            dependencies {
-                api("androidx.startup:startup-runtime:1.1.1")
-            }
-        }
+        val androidMain by getting
 
         val desktopMain by getting {
             dependencies {
@@ -44,14 +40,15 @@ kotlin {
 }
 
 android {
-    compileSdk = 33
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    namespace = "nl.vanparerensoftwaredevelopment.saltedpassmanager.storage"
+    compileSdk = 34
     defaultConfig {
         minSdk = 24
         targetSdk = 33
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 }
+

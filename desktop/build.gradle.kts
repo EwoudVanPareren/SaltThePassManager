@@ -5,13 +5,13 @@ plugins {
     id("org.jetbrains.compose")
 }
 
-group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
+group = "nl.vanparerensoftwaredevelopment.saltedpassmanager"
 version = "1.0-SNAPSHOT"
 
 
 kotlin {
     jvm {
-        jvmToolchain(11)
+        jvmToolchain(17)
         withJava()
     }
     sourceSets {
@@ -19,6 +19,7 @@ kotlin {
             dependencies {
                 implementation(project(":common"))
                 implementation(compose.desktop.currentOs)
+                implementation("it.sauronsoftware:junique:1.0.4")
             }
         }
         val jvmTest by getting
@@ -30,8 +31,17 @@ compose.desktop {
         mainClass = "MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "SaltedPassManagement"
+            packageName = "SaltedPassManager"
             packageVersion = "1.0.0"
+            macOS {
+                iconFile.set(project.file("icon-mac.icns"))
+            }
+            windows {
+                iconFile.set(project.file("icon-windows.ico"))
+            }
+            linux {
+                iconFile.set(project.file("icon-linux.png"))
+            }
         }
     }
 }

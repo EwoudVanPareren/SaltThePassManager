@@ -2,6 +2,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
+//    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
@@ -13,27 +14,34 @@ repositories {
 
 dependencies {
     implementation(project(":common"))
-    implementation("androidx.activity:activity-compose:1.5.0")
-    implementation("androidx.compose.material3:material3-window-size-class:1.1.1")
-    implementation("androidx.window:window:1.0.0")
+    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("androidx.compose.material3:material3-window-size-class:1.1.2")
+    implementation("androidx.window:window:1.1.0")
 }
 
 android {
-    compileSdkVersion(33)
+    namespace = "nl.vanparerensoftwaredevelopment.saltedpassmanagement.android"
+    compileSdk = 34
     defaultConfig {
         applicationId = "nl.vanparerensoftwaredevelopment.saltedpassmanagement.android"
-        minSdkVersion(24)
-        targetSdkVersion(33)
+        minSdk = 24
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0-SNAPSHOT"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    buildFeatures {
+        compose = true
     }
     buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+        debug {
+            applicationIdSuffix = ".debug"
         }
+//        release {
+//            isMinifyEnabled = false
+//        }
     }
 }

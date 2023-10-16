@@ -7,7 +7,7 @@ buildscript {
     }
 }
 
-group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
+group = "nl.vanparerensoftwaredevelopment.saltedpassmanager"
 version = "1.0-SNAPSHOT"
 
 allprojects {
@@ -15,6 +15,7 @@ allprojects {
         google()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven("https://github.com/poolborges/maven/raw/master/thirdparty/")
     }
 }
 

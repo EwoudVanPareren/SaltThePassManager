@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128.0px"
+   height="128.0px"
+   viewBox="0 0 128.0 128.0"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="icon-silhouette.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:export-filename="/home/vanpareren/Projects/SaltedPassManagement/icontray.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview225"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="4.5896745"
+     inkscape:cx="74.732969"
+     inkscape:cy="52.50917"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid231" />
+  </sodipodi:namedview>
+  <defs
+     id="defs220" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline;opacity:1">
+    <path
+       id="path9477"
+       style="fill:#000000;fill-opacity:1;stroke-width:1.6643"
+       d="M 22.392578 50.685547 L 22.392578 112.26367 C 22.392578 118.92086 27.385783 123.91406 34.042969 123.91406 L 93.957031 123.91406 C 100.61422 123.91406 105.60742 118.92086 105.60742 112.26367 L 105.60742 50.685547 L 22.392578 50.685547 z M 64 66.851562 A 9.30023 9.30023 0 0 1 73.300781 76.150391 A 9.30023 9.30023 0 0 1 66.357422 85.144531 L 66.357422 87.023438 L 73.431641 110.59961 L 54.568359 110.59961 L 61.642578 87.023438 L 61.642578 85.119141 A 9.30023 9.30023 0 0 1 54.699219 76.150391 A 9.30023 9.30023 0 0 1 64 66.851562 z " />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke-width:1.6643"
+       d="M 82.307258,42.364144 V 29.049771 c 0,-8.321483 -1.664297,-14.978669 -18.307263,-14.978669 -16.642966,0 -18.307263,6.657186 -18.307263,14.978669 V 42.364144 H 35.706953 V 29.049771 c 0,-11.650076 3.328593,-24.964449 28.293042,-24.964449 24.964449,0 28.293042,13.314373 28.293042,24.964449 v 13.314373 z"
+       id="path25265"
+       sodipodi:nodetypes="ccccccccccc" />
+  </g>
+</svg>

@@ -3,7 +3,7 @@ plugins {
     kotlin("plugin.serialization")
 }
 
-group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
+group = "nl.vanparerensoftwaredevelopment.saltedpassmanager"
 version = "1.0-SNAPSHOT"
 
 kotlin {

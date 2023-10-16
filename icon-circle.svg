@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="128.0px"
+   height="128.0px"
+   viewBox="0 0 128.0 128.0"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:export-filename="/home/vanpareren/Projects/SaltedPassManagement/linuxicon.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview225"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="6.4907799"
+     inkscape:cx="51.149477"
+     inkscape:cy="64.70717"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid231" />
+  </sodipodi:namedview>
+  <defs
+     id="defs220" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline;opacity:1">
+    <circle
+       style="fill:#6abfeb;stroke-width:12.7304;fill-opacity:1"
+       id="path1496"
+       cx="64"
+       cy="64"
+       r="63.652115" />
+    <g
+       id="g29610"
+       transform="matrix(1.2857143,0,0,1.2857143,160.42857,-14.428573)">
+      <path
+         style="opacity:1;fill:#023395;fill-opacity:0.924111"
+         d="m -100,48 h 50 v 5 h -50 v -5"
+         id="path2443"
+         sodipodi:nodetypes="ccccc" />
+      <path
+         style="opacity:1;fill:#f4f8ff;fill-opacity:1"
+         d="m -50,53 v 37 c 0,4 -3,7 -7,7 h -36 c -4,0 -7,-3 -7,-7 V 53 Z"
+         id="path9477"
+         sodipodi:nodetypes="ccccccc" />
+      <path
+         style="opacity:1;fill:#023395;fill-opacity:1;stroke-width:1.41667"
+         d="M -76.416667,74.833333 -80.666667,89 h 11.333334 l -4.25,-14.166667 V 72 h -2.833334 z"
+         id="path11287"
+         sodipodi:nodetypes="ccccccc" />
+      <circle
+         style="opacity:1;fill:#023395;fill-opacity:1;stroke-width:1.11762"
+         id="path14217"
+         cx="-75"
+         cy="68.301086"
+         r="5.5880847" />
+      <path
+         style="opacity:1;fill:#f4f8ff;fill-opacity:1"
+         d="m -64,48 v -8 c 0,-5 -1,-9 -11,-9 -10,0 -11,4 -11,9 v 8 h -6 v -8 c 0,-7 2,-15 17,-15 15,0 17,8 17,15 v 8 z"
+         id="path25265"
+         sodipodi:nodetypes="ccccccccccc" />
+    </g>
+  </g>
+</svg>
