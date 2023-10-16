@@ -1,17 +1,17 @@
 package nl.vanparerensoftwaredevelopment.saltedpassmanager.android
 
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.common.SaltThePassManagerRoot
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.SaltThePassManagerRoot
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.*
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.common.config.Configuration
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.common.screens.loading.LoadingScreen
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.common.theme.SaltThePassManagerTheme
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.common.ui.TopLevelLocalProviders
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.common.ui.WindowLevelLocalProviders
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.storage.store.DataStore
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.config.Configuration
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.screens.loading.LoadingScreen
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.theme.SaltThePassManagerTheme
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.ui.TopLevelLocalProviders
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.ui.WindowLevelLocalProviders
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.storage.store.DataStore
 import org.kodein.di.compose.rememberDI
 import org.kodein.di.instance
 

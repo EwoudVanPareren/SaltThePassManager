@@ -1,7 +1,7 @@
 package nl.vanparerensoftwaredevelopment.saltedpassmanager.storage
 
 import dev.dirs.ProjectDirectories
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.storage.model.UserFiles
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.storage.model.UserFiles
 import java.io.File
 
 fun UserFiles.Companion.from(qualifier: String, organization: String, appId: String): UserFiles {

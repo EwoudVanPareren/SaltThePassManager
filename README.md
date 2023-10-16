@@ -18,6 +18,7 @@ will need to be updated in the future.
 ## Features
 
 - Generate [SaltThePass](https://saltthepass.com) passwords
+  (excluding domain name rules and RIPEMD-160 hashing algorithm)
 - Some extra fields for adjusting the generated password
 - Keep track of accounts (combinations of domain name, phrase and other fields)
   by saving them
@@ -26,7 +27,8 @@ will need to be updated in the future.
 ## To-Do
 
 - Test on Windows & Mac
-- Add unit tests
+- Add support for RIPEMD-160 hashing algorithm
+- Add unit tests for the `ScreenModel`s, plus some UI tests
 - Proguard on Desktop still needs to be configured
 - Add a way to move the stored-accounts file to a user-defined location
   This would allow users to synchronize stored accounts between devices
@@ -41,7 +43,8 @@ will need to be updated in the future.
 
 - The original [SaltThePass](https://saltthepass.com) by [Nic Jansma](https://nicj.net/).
   This project uses the same algorithm and a similarly designed UI.
-  Additionally, some text from the original SaltThePass was adapted into this project's help UI.
+  Additionally, some text from the original SaltThePass was adapted into this
+  project's help texts.
 - GitHub Material Icon from [Pictogrammers](https://pictogrammers.com/library/mdi/)
 - Logic for opening the default browser on Desktop is based on https://stackoverflow.com/a/68426773
 

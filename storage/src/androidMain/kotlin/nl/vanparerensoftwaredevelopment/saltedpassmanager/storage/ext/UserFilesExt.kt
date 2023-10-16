@@ -1,7 +1,7 @@
 package nl.vanparerensoftwaredevelopment.saltedpassmanager.storage.ext
 
 import android.content.Context
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.storage.model.UserFiles
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.storage.model.UserFiles
 
 /**
  * Create a [UserFiles] from the given [Context], pointing

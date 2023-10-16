@@ -1,13 +1,10 @@
 package nl.vanparerensoftwaredevelopment.saltedpassmanager.android
 
 import android.app.Application
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.common.di.commonModule
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.storage.model.UserFiles
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.storage.ext.from
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.di.commonModule
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.di.androidModule
 import org.kodein.di.DI
 import org.kodein.di.android.x.androidXModule
-import org.kodein.di.bindSingleton
-import org.kodein.di.instance
 
 /**
  * The application class for SaltThePassManager.
@@ -23,10 +20,7 @@ class SaltThePassManagerApplication: Application() {
         di = DI {
             import(androidXModule(this@SaltThePassManagerApplication))
             import(commonModule)
-
-            bindSingleton<UserFiles> {
-                UserFiles.from(instance())
-            }
+            import(androidModule)
         }
     }
 }

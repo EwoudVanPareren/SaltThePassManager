@@ -1,4 +1,4 @@
-import nl.vanparerensoftwaredevelopment.saltedpassmanager.common.desktopMain
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.desktopMain
 import utils.withJUniqueLock
 
 private const val UNIQUE_APPLICATION_ID = "nl.vanparerensoftwaredevelopment.saltthepassmanager"
