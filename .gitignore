@@ -7,6 +7,8 @@ local.properties
 
 ### IntelliJ IDEA ###
 .idea/
+.idea/*
+.idea/**/*
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
