@@ -15,7 +15,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "SaltedPassManager"
+rootProject.name = "SaltThePass Manager"
 
 include(":android", ":desktop", ":common")
 include(":saltthepass", ":storage")
