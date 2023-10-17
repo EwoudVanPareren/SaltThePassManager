@@ -7,8 +7,8 @@ buildscript {
     }
 }
 
-group = "nl.vanparerensoftwaredevelopment.saltedpassmanager"
-version = "1.0-SNAPSHOT"
+group = "nl.vanparerensoftwaredevelopment.saltthepassmanager"
+version = "1.0"
 
 allprojects {
     repositories {

@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "nl.vanparerensoftwaredevelopment.saltedpassmanager"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 kotlin {
     android()
