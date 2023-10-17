@@ -27,18 +27,17 @@ fun LoadingScreen(overrideDarkMode: Boolean? = null) {
             contentAlignment = Alignment.Center,
             modifier = Modifier.padding(paddingValues).fillMaxSize(1f)
         ) {
-            val useDarkIcon = overrideDarkMode ?: when (LocalAppConfiguration.current.theme) {
+            val useLightIcon = overrideDarkMode ?: when (LocalAppConfiguration.current.theme) {
                 Configuration.Theme.LIGHT -> false
                 Configuration.Theme.DARK -> true
                 Configuration.Theme.SYSTEM -> isSystemInDarkTheme()
             }
-            val loadingIcon = if (useDarkIcon) {
-                painterResource(MR.images.icon_tray_light)
-            } else {
-                painterResource(MR.images.icon_tray_dark)
-            }
             Image(
-                loadingIcon,
+                painter = painterResource(if (useLightIcon) {
+                    MR.images.icon_tray_light
+                } else {
+                    MR.images.icon_tray_dark
+                }),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxSize(0.5f)
