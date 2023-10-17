@@ -1,3 +1,11 @@
+import dev.icerock.gradle.utils.requiredPropertyString
+import org.jetbrains.kotlin.konan.properties.hasProperty
+import java.util.Properties
+
+val localProperties = Properties().apply {
+    load(rootProject.file("local.properties").reader())
+}
+
 plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
@@ -36,12 +44,28 @@ android {
     buildFeatures {
         compose = true
     }
+
+    // If the project's local.properties contains data on a keystore,
+    // use that to sign the release build. Otherwise, leave it unsigned.
+    if (localProperties.hasProperty("keystorePath")) {
+        signingConfigs {
+            create("release") {
+                storeFile = File(localProperties.getProperty("keystorePath"))
+                storePassword = localProperties.getProperty("keystorePassword")
+                keyAlias = localProperties.getProperty("keystoreReleaseAlias")
+                keyPassword = localProperties.getProperty("keystoreReleasePassword")
+            }
+        }
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
         }
-//        release {
-//            isMinifyEnabled = false
-//        }
+        release {
+            if (signingConfigs.names.contains("release")) {
+                signingConfig = signingConfigs["release"]
+            }
+        }
     }
 }
