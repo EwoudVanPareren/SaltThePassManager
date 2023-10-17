@@ -27,7 +27,7 @@ will need to be updated in the future.
 
 ## To-Do
 
-- Test on Windows & Mac
+- Build (and test) on Mac
 - Add support for RIPEMD-160 hashing algorithm
 - Add more tests
   - Unit tests for the `ScreenModel`s
