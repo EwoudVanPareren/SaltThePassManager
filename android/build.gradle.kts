@@ -1,9 +1,14 @@
-import dev.icerock.gradle.utils.requiredPropertyString
 import org.jetbrains.kotlin.konan.properties.hasProperty
 import java.util.Properties
 
 val localProperties = Properties().apply {
-    load(rootProject.file("local.properties").reader())
+    rootProject.file("local.properties")
+        .takeIf { it.exists() }
+        ?.let { file ->
+            file.reader().use {
+                load(it)
+            }
+        }
 }
 
 plugins {
