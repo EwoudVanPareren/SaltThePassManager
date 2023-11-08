@@ -44,7 +44,7 @@ jobs:
       uses: timheuer/base64-to-file@v1.2
       with:
         fileName: 'keystore.jks'
-        fileDir: './'
+        fileDir: 'android/'
         encodedString: ${{ secrets.KEYSTORE_FILE }}
 
     - name: Unpack keystore credentials
