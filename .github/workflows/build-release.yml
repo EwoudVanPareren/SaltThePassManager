@@ -23,6 +23,8 @@ jobs:
         
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
+      with:
+        cache-read-only: false
     
     - name: Execute Gradle build
       run: ./gradlew desktop:packageDistributionForCurrentOS
@@ -31,7 +33,10 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: desktop-${{ matrix.os }}
-        path: desktop/build/compose/binaries/main/**/*
+        path: |
+          desktop/build/compose/binaries/main/dmg/*
+          desktop/build/compose/binaries/main/deb/*
+          desktop/build/compose/binaries/main/msi/*
 
   build-android:
     runs-on: ubuntu-latest
@@ -57,9 +62,17 @@ jobs:
         
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
+      with:
+        cache-read-only: false
     
     - name: Execute Gradle build
       run: ./gradlew android:build
+
+    - name: List all generated APK files
+      uses: the-coding-turtle/ga-file-list@v0.2
+      with:
+        directory: "android/build"
+        file_extension: "apk"
       
     - name: Upload build
       uses: actions/upload-artifact@v3
