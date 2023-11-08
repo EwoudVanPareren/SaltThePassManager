@@ -32,11 +32,8 @@ jobs:
     - name: Upload builds
       uses: actions/upload-artifact@v3
       with:
-        name: desktop-${{ matrix.os }}
-        path: |
-          desktop/build/compose/binaries/main/dmg/*
-          desktop/build/compose/binaries/main/deb/*
-          desktop/build/compose/binaries/main/msi/*
+        name: desktop-builds
+        path: desktop/build/compose/binaries/main/**/*
 
   build-android:
     runs-on: ubuntu-latest
@@ -55,6 +52,9 @@ jobs:
         fileName: 'local.properties'
         encodedString: ${{ secrets.LOCAL_PROPERTIES }}
 
+    - name: List root files
+      run: ls
+    
     - uses: actions/setup-java@v3
       with:
         distribution: temurin
@@ -68,11 +68,8 @@ jobs:
     - name: Execute Gradle build
       run: ./gradlew android:build
 
-    - name: List all generated APK files
-      uses: the-coding-turtle/ga-file-list@v0.2
-      with:
-        directory: "android/build"
-        file_extension: "apk"
+    - name: List APKs
+      run: find android/build | grep \\.apk
       
     - name: Upload build
       uses: actions/upload-artifact@v3
