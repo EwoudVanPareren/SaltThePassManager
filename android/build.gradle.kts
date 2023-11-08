@@ -4,11 +4,7 @@ import java.util.Properties
 val localProperties = Properties().apply {
     rootProject.file("local.properties")
         .takeIf { it.exists() }
-        ?.let { file ->
-            file.reader().use {
-                load(it)
-            }
-        }
+        ?.reader()?.use { load(it) }
 }
 
 plugins {
@@ -55,7 +51,9 @@ android {
     if (localProperties.hasProperty("keystorePath")) {
         signingConfigs {
             create("release") {
-                storeFile = File(localProperties.getProperty("keystorePath"))
+                storeFile = localProperties.getProperty("keystorePath")?.let {
+                    File(it)
+                } ?: rootProject.file(localProperties.getProperty("keystorePathOnProject"))
                 storePassword = localProperties.getProperty("keystorePassword")
                 keyAlias = localProperties.getProperty("keystoreReleaseAlias")
                 keyPassword = localProperties.getProperty("keystoreReleasePassword")
