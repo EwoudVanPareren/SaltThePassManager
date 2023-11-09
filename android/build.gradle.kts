@@ -48,7 +48,7 @@ android {
 
     // If the project's local.properties contains data on a keystore,
     // use that to sign the release build. Otherwise, leave it unsigned.
-    if (localProperties.hasProperty("keystorePath")) {
+    if (localProperties.hasProperty("keystorePath") || localProperties.hasProperty("keystorePathOnProject")) {
         signingConfigs {
             create("release") {
                 storeFile = localProperties.getProperty("keystorePath")?.let {

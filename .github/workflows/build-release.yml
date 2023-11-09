@@ -34,6 +34,7 @@ jobs:
       with:
         name: desktop-builds
         path: desktop/build/compose/binaries/main/**/*
+        if-no-files-found: error
 
   build-android:
     runs-on: ubuntu-latest
@@ -78,3 +79,4 @@ jobs:
       with:
         name: android
         path: android/build/outputs/apk/release/android-release.apk
+        if-no-files-found: error
