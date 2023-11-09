@@ -23,8 +23,6 @@ jobs:
         
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
-      with:
-        cache-read-only: false
     
     - name: Execute Gradle build
       run: ./gradlew desktop:packageDistributionForCurrentOS
@@ -54,9 +52,6 @@ jobs:
         fileName: 'local.properties'
         fileDir: './'
         encodedString: ${{ secrets.LOCAL_PROPERTIES }}
-
-    - name: List root files
-      run: ls
     
     - uses: actions/setup-java@v3
       with:
@@ -65,18 +60,13 @@ jobs:
         
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
-      with:
-        cache-read-only: false
     
     - name: Execute Gradle build
       run: ./gradlew android:build
-
-    - name: List APKs
-      run: find android/build | grep \\.apk
       
     - name: Upload build
       uses: actions/upload-artifact@v3
       with:
-        name: android
+        name: android-build
         path: android/build/outputs/apk/release/android-release.apk
         if-no-files-found: error

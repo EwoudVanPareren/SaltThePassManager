@@ -11,7 +11,6 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
-//    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
