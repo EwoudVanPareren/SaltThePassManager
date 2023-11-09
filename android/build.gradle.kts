@@ -16,10 +16,6 @@ plugins {
 group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
 version = "1.0"
 
-repositories {
-    jcenter()
-}
-
 dependencies {
     implementation(project(":common"))
     implementation("androidx.activity:activity-compose:1.7.2")
@@ -47,12 +43,10 @@ android {
 
     // If the project's local.properties contains data on a keystore,
     // use that to sign the release build. Otherwise, leave it unsigned.
-    if (localProperties.hasProperty("keystorePath") || localProperties.hasProperty("keystorePathOnProject")) {
+    if (localProperties.hasProperty("keystorePath")) {
         signingConfigs {
             create("release") {
-                storeFile = localProperties.getProperty("keystorePath")?.let {
-                    File(it)
-                } ?: rootProject.file(localProperties.getProperty("keystorePathOnProject"))
+                storeFile = rootProject.file(File(localProperties.getProperty("keystorePath")))
                 storePassword = localProperties.getProperty("keystorePassword")
                 keyAlias = localProperties.getProperty("keystoreReleaseAlias")
                 keyPassword = localProperties.getProperty("keystoreReleasePassword")
