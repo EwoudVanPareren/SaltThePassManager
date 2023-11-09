@@ -35,7 +35,7 @@ internal suspend fun <T> File.writeJson(
     json: Json = Json.Default
 ) {
     withContext(Dispatchers.IO) {
-        parentFile.mkdirs()
+        parentFile?.mkdirs()
         writeText(json.encodeToString(kSerializer, value), Charsets.UTF_8)
     }
 }

@@ -343,16 +343,10 @@ class MainScreen: Screen {
                     Text(stringResource(MR.strings.clear_clipboard_label))
                 }
                 Button(
-                    onClick = { screenModel.clearFormAccount() },
-                    enabled = screenModel.canAccountBeCleared
+                    onClick = { screenModel.clearForm() },
+                    enabled = screenModel.canFormBeCleared
                 ) {
-                    Text(stringResource(MR.strings.clear_form_account_label))
-                }
-                Button(
-                    onClick = { screenModel.clearFormAll() },
-                    enabled = screenModel.canAllBeCleared
-                ) {
-                    Text(stringResource(MR.strings.clear_form_all_label))
+                    Text(stringResource(MR.strings.clear_form_label))
                 }
             }
 

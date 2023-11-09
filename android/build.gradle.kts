@@ -14,7 +14,7 @@ plugins {
 }
 
 group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
-version = "1.0"
+version = "1.0.1"
 
 dependencies {
     implementation(project(":common"))
@@ -31,7 +31,7 @@ android {
         minSdk = 24
         targetSdk = 33
         versionCode = 1
-        versionName = "1.0-SNAPSHOT"
+        versionName = "1.0.1"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

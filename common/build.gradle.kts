@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "nl.vanparerensoftwaredevelopment.saltedpassmanager"
-version = "1.0"
+version = "1.0.1"
 
 kotlin {
     android()
@@ -89,8 +89,3 @@ android {
 multiplatformResources {
     multiplatformResourcesPackage = "nl.vanparerensoftwaredevelopment.saltedpassmanager.resources"
 }
-
-//listOf("generate")
-//tasks.named("generateReleaseResources") {
-//    dependsOn("generateMRandroidMain", "generateMRcommonMain", "generateMRdesktopMain")
-//}

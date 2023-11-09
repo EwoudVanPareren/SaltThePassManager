@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "nl.vanparerensoftwaredevelopment.saltedpassmanager"
-version = "1.0"
+version = "1.0.1"
 
 
 kotlin {
@@ -32,7 +32,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "SaltThePass Manager"
-            packageVersion = "1.0.0"
+            packageVersion = "1.0.1"
             copyright = "(c) 2023 Ewoud van Pareren"
             description = "Use the SaltThePass algorithm for generating passwords using a master password, and for keeping track of saved account data."
             macOS {
