@@ -4,26 +4,17 @@ import java.util.Properties
 val localProperties = Properties().apply {
     rootProject.file("local.properties")
         .takeIf { it.exists() }
-        ?.let { file ->
-            file.reader().use {
-                load(it)
-            }
-        }
+        ?.reader()?.use { load(it) }
 }
 
 plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
-//    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 group = "nl.vanparerensoftwaredevelopment.saltedpassmanagement"
 version = "1.0"
-
-repositories {
-    jcenter()
-}
 
 dependencies {
     implementation(project(":common"))
@@ -55,7 +46,7 @@ android {
     if (localProperties.hasProperty("keystorePath")) {
         signingConfigs {
             create("release") {
-                storeFile = File(localProperties.getProperty("keystorePath"))
+                storeFile = rootProject.file(File(localProperties.getProperty("keystorePath")))
                 storePassword = localProperties.getProperty("keystorePassword")
                 keyAlias = localProperties.getProperty("keystoreReleaseAlias")
                 keyPassword = localProperties.getProperty("keystoreReleasePassword")
