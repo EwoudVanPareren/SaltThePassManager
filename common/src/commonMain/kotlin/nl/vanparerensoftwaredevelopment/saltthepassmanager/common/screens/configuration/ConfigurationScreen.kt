@@ -68,6 +68,26 @@ class ConfigurationScreen: Screen {
             verticalArrangement = Arrangement.spacedBy(5.dp),
             modifier = modifier
         ) {
+
+            // config_keep_master_password_on_clear_form_label
+            ListItem(
+                headlineContent = { Text(stringResource(MR.strings.config_keep_master_password_on_clear_form_label)) },
+                supportingContent = { Text(stringResource(
+                    if (screenModel.keepMasterPasswordOnClearForm) {
+                        MR.strings.config_keep_master_password_on_clear_form_true_description
+                    } else {
+                        MR.strings.config_keep_master_password_on_clear_form_false_description
+                    }
+                )) },
+                trailingContent = {
+                    Checkbox(
+                        checked = screenModel.keepMasterPasswordOnClearForm,
+                        onCheckedChange = { screenModel.changeKeepMasterPasswordOnClearForm(it) }
+                    )
+                }
+            )
+
+
             Box {
                 var isOpen by remember { mutableStateOf(false) }
                 val currentTheme = screenModel.theme
@@ -111,35 +131,47 @@ class ConfigurationScreen: Screen {
 
             if (screenModel.showTrayOptions) {
                 ListItem(
-                    headlineContent = { Text(stringResource(MR.strings.config_close_to_tray_label)) },
-                    supportingContent = { Text(stringResource(MR.strings.config_close_to_tray_description)) },
+                    headlineContent = { Text(stringResource(MR.strings.config_enable_tray_icon_label)) },
                     trailingContent = {
                         Checkbox(
-                            checked = screenModel.closeToTray,
-                            onCheckedChange = { screenModel.changeCloseToTray(it) }
+                            checked = screenModel.enableTrayIcon,
+                            onCheckedChange = { screenModel.changeEnableTrayIcon(it) }
                         )
                     }
                 )
-                ListItem(
-                    headlineContent = { Text(stringResource(MR.strings.config_tray_icon_color)) },
-                    supportingContent = {
-                        Text(screenModel.trayIconColor.displayName())
-                    },
-                    trailingContent = {
-                        val current = screenModel.trayIconColor
-                        IconButton(
-                            onClick = {
-                                screenModel.changeTrayColor(current.nextEnumValue())
-                            }
-                        ) {
-                            val icon = when (current) {
-                                Configuration.TrayIconColor.LIGHT -> AppIcons.BrightnessHigh
-                                Configuration.TrayIconColor.DARK -> AppIcons.BrightnessLow
-                            }
-                            Icon(icon, contentDescription = null)
+
+                if (screenModel.enableTrayIcon) {
+                    ListItem(
+                        headlineContent = { Text(stringResource(MR.strings.config_close_to_tray_label)) },
+                        supportingContent = { Text(stringResource(MR.strings.config_close_to_tray_description)) },
+                        trailingContent = {
+                            Checkbox(
+                                checked = screenModel.closeToTray,
+                                onCheckedChange = { screenModel.changeCloseToTray(it) }
+                            )
                         }
-                    }
-                )
+                    )
+                    ListItem(
+                        headlineContent = { Text(stringResource(MR.strings.config_tray_icon_color)) },
+                        supportingContent = {
+                            Text(screenModel.trayIconColor.displayName())
+                        },
+                        trailingContent = {
+                            val current = screenModel.trayIconColor
+                            IconButton(
+                                onClick = {
+                                    screenModel.changeTrayColor(current.nextEnumValue())
+                                }
+                            ) {
+                                val icon = when (current) {
+                                    Configuration.TrayIconColor.LIGHT -> AppIcons.BrightnessHigh
+                                    Configuration.TrayIconColor.DARK -> AppIcons.BrightnessLow
+                                }
+                                Icon(icon, contentDescription = null)
+                            }
+                        }
+                    )
+                }
             }
             Box {
                 var isOpen by remember { mutableStateOf(false) }

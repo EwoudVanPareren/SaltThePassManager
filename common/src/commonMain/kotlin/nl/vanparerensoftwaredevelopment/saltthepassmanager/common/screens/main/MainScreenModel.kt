@@ -1,9 +1,6 @@
 package nl.vanparerensoftwaredevelopment.saltthepassmanager.common.screens.main
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import cafe.adriel.voyager.core.model.ScreenModel
@@ -11,21 +8,26 @@ import cafe.adriel.voyager.core.model.coroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.config.Configuration
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.saltthepass.Hashers
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.saltthepass.SaltThePass
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.storage.StoredAccountsService
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.storage.StoredAccountsService.AddOnSameKey
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.storage.model.DomainSuggestion
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.storage.model.StoredAccount
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.storage.store.DataStore
 
 /**
  * The screen model (/viewmodel) for [MainScreen].
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class MainScreenModel(
+    appConfig: DataStore<Configuration>,
     private val storedAccountsService: StoredAccountsService,
     private val modelForm: MainScreenModelForm
 ): ScreenModel {
+    private var config by mutableStateOf(Configuration.DEFAULT)
+
     var masterPassword by modelForm::masterPassword
     var domainName by modelForm::domainName
     var domainPhrase by modelForm::domainPhrase
@@ -43,14 +45,17 @@ class MainScreenModel(
 
     var copiedToClipboard by mutableStateOf(false)
 
-    var canAllBeCleared by mutableStateOf(false)
-    var canAccountBeCleared by mutableStateOf(false)
+    var canFormBeCleared by mutableStateOf(false)
 
     var canSave by mutableStateOf(false)
     var canUpdate by mutableStateOf(false)
     var canDelete by mutableStateOf(false)
 
     init {
+        appConfig.updates.onEach {
+            config = it
+        }.launchIn(coroutineScope)
+
         // Ensure that length doesn't exceed the hasher's max
         snapshotFlow {
             try {
@@ -85,26 +90,15 @@ class MainScreenModel(
         }.launchIn(coroutineScope)
 
         snapshotFlow {
-            val canClearDomain = domainName.isNotEmpty()
+            (!config.keepMasterPasswordOnClearForm && masterPassword.isNotEmpty())
+                    || domainName.isNotEmpty()
                     || domainPhrase.isNotEmpty()
                     || versionName.isNotEmpty()
                     || appendSpecial.isNotEmpty()
                     || length != 20
                     || hasher != Hashers.default
-
-            val canClearForm = canClearDomain || masterPassword.isNotEmpty()
-
-            canClearDomain to canClearForm
-        }.onEach { (canClearDomain, canClearForm) ->
-            canAccountBeCleared = canClearDomain
-            canAllBeCleared = canClearForm
-        }.launchIn(coroutineScope)
-
-        snapshotFlow {
-            masterPassword.isNotEmpty()
-                    || canAllBeCleared
         }.onEach {
-            canAllBeCleared = it
+            canFormBeCleared = it
         }.launchIn(coroutineScope)
 
         val domainNames = snapshotFlow {
@@ -212,12 +206,10 @@ class MainScreenModel(
         }
     }
 
-    fun clearFormAll() {
-        masterPassword = ""
-        clearFormAccount()
-    }
-
-    fun clearFormAccount() {
+    fun clearForm() {
+        if (!config.keepMasterPasswordOnClearForm) {
+            masterPassword = ""
+        }
         domainName = ""
         domainPhrase = ""
         versionName = ""

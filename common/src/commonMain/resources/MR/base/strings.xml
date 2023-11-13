@@ -20,8 +20,7 @@
     <string name="salted_password_help_advanced">The <b>Salted Password</b> is the output of your Master Password, combined with the Domain Name, Domain Phrase (optional) and Version Name (optional).\nThe Password Appendix (optional) is used at the end.</string>
     <string name="copy_password_label">Copy password</string>
     <string name="clear_clipboard_label">Clear clipboard</string>
-    <string name="clear_form_all_label">Clear form (all)</string>
-    <string name="clear_form_account_label">Clear form (account)</string>
+    <string name="clear_form_label">Clear form</string>
     <string name="advanced_settings_label">Advanced Settings</string>
     <string name="hashing_function_label">Hashing Function</string>
     <string name="hashing_function_help">SaltThePass uses a cryptographic hash function as part of the algorithm that generates your Salted Password. Each hash function will provide different output, so if you ever change the hash function you use, you will get a different Salted Password. By default, Keccak512 is used.</string>
@@ -46,8 +45,12 @@
 
 
     <string name="configs_title">Configuration</string>
+    <string name="config_keep_master_password_on_clear_form_label">Keep Master Password when clearing form</string>
+    <string name="config_keep_master_password_on_clear_form_true_description">Clearing the form will not clear the Master Password</string>
+    <string name="config_keep_master_password_on_clear_form_false_description">Clearing the form clears the Master Password</string>
     <string name="config_theme_label">Theme</string>
     <string name="config_density_label">UI Density</string>
+    <string name="config_enable_tray_icon_label">Enable tray icon</string>
     <string name="config_close_to_tray_label">Close to tray</string>
     <string name="config_close_to_tray_description">When closing the window, keep the application alive in the system tray</string>
     <string name="config_tray_icon_color">Tray icon color</string>

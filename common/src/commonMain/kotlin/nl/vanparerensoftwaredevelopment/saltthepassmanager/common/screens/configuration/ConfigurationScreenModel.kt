@@ -23,12 +23,20 @@ class ConfigurationScreenModel(
 ): ScreenModel {
     private val extractors = mutableListOf<(Configuration) -> Unit>()
 
+    private val _keepMasterPasswordOnClearForm = Field(
+        getter = { keepMasterPasswordOnClearForm },
+        updater = { copy(keepMasterPasswordOnClearForm = it) }
+    )
+    val keepMasterPasswordOnClearForm by _keepMasterPasswordOnClearForm
+    fun changeKeepMasterPasswordOnClearForm(value: Boolean) =
+        _keepMasterPasswordOnClearForm.change(value)
+
     private val _theme = Field(
         getter = { theme },
         updater = { copy(theme = it) }
     )
     val theme by _theme
-    fun changeTheme(theme: Configuration.Theme) = _theme.change(theme)
+    fun changeTheme(theme: Configuration.Theme) =_theme.change(theme)
 
     private val _density = Field(
         getter = { density },
@@ -36,6 +44,13 @@ class ConfigurationScreenModel(
     )
     val density by _density
     fun changeDensity(density: Configuration.DensityLevel) = _density.change(density)
+
+    private val _enableTrayIcon = Field(
+        getter = { enableTrayIcon },
+        updater = { copy(enableTrayIcon = it) }
+    )
+    val enableTrayIcon by _enableTrayIcon
+    fun changeEnableTrayIcon(enableTrayIcon: Boolean) = _enableTrayIcon.change(enableTrayIcon)
 
     private val _closeToTray = Field(
         getter = { closeToTray },

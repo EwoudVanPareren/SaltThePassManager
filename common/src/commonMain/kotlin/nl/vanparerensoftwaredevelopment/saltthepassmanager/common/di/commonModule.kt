@@ -32,7 +32,7 @@ val commonModule = DI.Module(name = DIConstants.Modules.COMMON) {
     bindSingleton { MainScreenModelForm() }
 
     bindProvider<MainScreenModel> {
-        MainScreenModel(instance(), instance())
+        MainScreenModel(instance(), instance(), instance())
     }
     bindProvider<ConfigurationScreenModel> {
         ConfigurationScreenModel(instance())

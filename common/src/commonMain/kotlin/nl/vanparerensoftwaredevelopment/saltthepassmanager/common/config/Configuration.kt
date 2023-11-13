@@ -12,8 +12,10 @@ import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.Platform
 data class Configuration(
     val theme: Theme = Theme.default,
     val density: DensityLevel = DensityLevel.NORMAL,
+    val enableTrayIcon: Boolean = false,
     val closeToTray: Boolean = false,
-    val trayIconColor: TrayIconColor = TrayIconColor.default
+    val trayIconColor: TrayIconColor = TrayIconColor.default,
+    val keepMasterPasswordOnClearForm: Boolean = false
 ) {
     /**
      * The configurable theme of the app.

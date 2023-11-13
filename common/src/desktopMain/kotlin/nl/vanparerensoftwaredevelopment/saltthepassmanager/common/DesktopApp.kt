@@ -49,7 +49,7 @@ fun desktopMain(args: List<String>, openMessages: Flow<Unit>) {
                     )
                 }
 
-                if (Platform.isTraySupported) {
+                if (Platform.isTraySupported && LocalAppConfiguration.current.enableTrayIcon) {
                     MainTray(
                         minimizedToTray,
                         toggleMinimized = { minimizedToTray = !minimizedToTray }
@@ -66,7 +66,9 @@ private fun ApplicationScope.MainWindow(
     appIcon: Painter,
     minimizeToTray: () -> Unit
 ) {
-    val closeToTray = LocalAppConfiguration.current.closeToTray
+    val closeToTray = LocalAppConfiguration.current.let {
+        it.enableTrayIcon && it.closeToTray
+    }
     Window(
         title = stringResource(MR.strings.app_title),
         onCloseRequest = {
