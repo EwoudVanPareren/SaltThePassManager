@@ -8,10 +8,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
@@ -31,6 +31,7 @@ import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.ui.windowsize.
 import nl.vanparerensoftwaredevelopment.saltedpassmanager.resources.MR
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.saltthepass.Hashers
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.ui.components.*
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.ui.windowsize.LocalWindowSize
 import kotlin.math.roundToInt
 
 /**
@@ -41,7 +42,6 @@ class MainScreen: Screen {
     @Composable
     override fun Content() {
         val screenModel = rememberScreenModel<MainScreenModel>()
-
         val scrollState = rememberScrollState()
         Scaffold(
             topBar = {
@@ -94,6 +94,8 @@ class MainScreen: Screen {
 
         val showAdvanced = showAdvancedOptionsChecked || showAdvancedAnyway
 
+        var deletePopup by remember { mutableStateOf(false) }
+
         Column(
             modifier = modifier.padding(10.dp),
             verticalArrangement = Arrangement.spacedBy(5.dp)
@@ -111,6 +113,9 @@ class MainScreen: Screen {
             Box(modifier = Modifier.fillMaxWidth()) {
                 var isOpen by remember { mutableStateOf(false) }
                 val suggestions = screenModel.domainNameSuggestions
+
+                var textFieldWidth by remember { mutableStateOf(0) }
+
                 FormTextField(
                     label = stringResource(MR.strings.domain_name_label),
                     value = screenModel.domainName,
@@ -131,10 +136,12 @@ class MainScreen: Screen {
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
+                        .onSizeChanged { textFieldWidth = it.width }
                 )
                 DropdownMenu(
                     expanded = isOpen,
-                    onDismissRequest = { isOpen = false }
+                    onDismissRequest = { isOpen = false },
+                    modifier = Modifier.widthIn(min = textFieldWidth.fromPixelsToDp())
                 ) {
                     suggestions.forEach { item ->
                         DropdownMenuItem(
@@ -149,9 +156,11 @@ class MainScreen: Screen {
                 }
             }
 
-            Box(modifier = Modifier.fillMaxWidth()) {
-                var isOpen by remember { mutableStateOf(false) }
+            Box {
+                var isSuggestionsOpen by remember { mutableStateOf(false) }
                 val suggestions = screenModel.domainPhraseSuggestions
+                var textFieldWidth by remember { mutableStateOf(0) }
+
                 FormTextField(
                     label = stringResource(MR.strings.domain_phrase_label),
                     value = screenModel.domainPhrase,
@@ -161,7 +170,7 @@ class MainScreen: Screen {
                             HelpDot(stringResource(MR.strings.domain_phrase_help))
 
                             IconButton(
-                                onClick = { isOpen = !isOpen },
+                                onClick = { isSuggestionsOpen = !isSuggestionsOpen },
                                 enabled = screenModel.domainName.isNotEmpty()
                             ) {
                                 Icon(
@@ -171,65 +180,15 @@ class MainScreen: Screen {
                             }
                         }
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .onSizeChanged { textFieldWidth = it.width }
                 )
                 DropdownMenu(
-                    expanded = isOpen,
-                    onDismissRequest = { isOpen = false },
-                    modifier = Modifier.fillMaxWidth()
+                    expanded = isSuggestionsOpen,
+                    onDismissRequest = { isSuggestionsOpen = false },
+                    modifier = Modifier.widthIn(min = textFieldWidth.fromPixelsToDp())
                 ) {
-                    val curPhrase = screenModel.domainPhrase
-                    if (screenModel.canSave || screenModel.canUpdate) {
-                        val isUpdate = screenModel.canUpdate
-                        DropdownMenuItem(
-                            leadingIcon = {
-                                val icon = if (isUpdate) {
-                                    AppIcons.Edit
-                                } else {
-                                    AppIcons.AddCircle
-                                }
-                                Icon(icon, contentDescription = null)
-                            },
-                            text = {
-                                Text(buildAnnotatedString {
-                                    withStyle(SpanStyle(fontStyle = FontStyle.Italic)) {
-                                        if (screenModel.canUpdate) {
-                                            append(stringResource(MR.strings.account_update_action_label))
-                                        } else {
-                                            append(stringResource(MR.strings.account_save_action_label))
-                                        }
-                                        append(" ")
-                                    }
-                                    appendDomainPhrase(curPhrase)
-                                })
-                            },
-                            onClick = {
-                                screenModel.saveCurrent()
-                                isOpen = false
-                            }
-                        )
-                    }
-                    if (screenModel.canDelete) {
-                        DropdownMenuItem(
-                            leadingIcon = {
-                                Icon(AppIcons.Delete, contentDescription = null)
-                            },
-                            text = {
-                                Text(buildAnnotatedString {
-                                    withStyle(SpanStyle(fontStyle = FontStyle.Italic)) {
-                                        append(stringResource(MR.strings.account_delete_action_label))
-                                    }
-                                    append(" ")
-                                    appendDomainPhrase(curPhrase)
-                                })
-                            },
-                            onClick = {
-                                screenModel.deleteCurrent()
-                                isOpen = false
-                            },
-                            colors = MenuDefaults.itemColors(leadingIconColor = MaterialTheme.colorScheme.error)
-                        )
-                    }
                     suggestions.forEach { item ->
                         DropdownMenuItem(
                             leadingIcon = {
@@ -248,11 +207,41 @@ class MainScreen: Screen {
                             },
                             onClick = {
                                 screenModel.clickedDomainPhraseSuggestion(item)
-                                isOpen = false
+                                isSuggestionsOpen = false
                             }
                         )
                     }
                 }
+            }
+
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.End),
+                verticalArrangement = Arrangement.spacedBy(3.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                TextButton(
+                    enabled = screenModel.canDelete,
+                    onClick = { deletePopup = true }
+                ) {
+                    Icon(
+                        AppIcons.Delete,
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = 6.dp)
+                    )
+                    Text(stringResource(MR.strings.account_delete_action_label))
+                }
+                TextButton(
+                    enabled = screenModel.canSave,
+                    onClick = { screenModel.saveCurrent() }
+                ) {
+                    Icon(
+                        AppIcons.Save,
+                        contentDescription = null,
+                        modifier = Modifier.padding(end = 6.dp)
+                    )
+                    Text(stringResource(MR.strings.account_save_action_label))
+                }
+                HelpDot(text = stringResource(MR.strings.accounts_help))
             }
 
             if (showAdvanced) {
@@ -315,10 +304,12 @@ class MainScreen: Screen {
             FormTextField.ReadOnly(
                 label = stringResource(MR.strings.salted_password_label),
                 value = screenModel.output,
-                trailingIcon = { HelpDot(stringResource(
-                    if (showAdvanced) MR.strings.salted_password_help_advanced
-                            else MR.strings.salted_password_help_basic
-                )) },
+                trailingIcon = {
+                    HelpDot(stringResource(
+                        if (showAdvanced) MR.strings.salted_password_help_advanced
+                        else MR.strings.salted_password_help_basic
+                    ))
+                },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -423,6 +414,68 @@ class MainScreen: Screen {
                 }
             }
         }
+        if (deletePopup) {
+            AlertDialog(
+                text = {
+                    if (LocalWindowSize.current.width > WindowWidthClass.SMALL) {
+                        Text(buildAnnotatedString {
+                            val domainName = screenModel.domainName
+                            val domainPhrase = screenModel.domainPhrase
+
+                            append(stringResource(MR.strings.delete_account_long_message_1))
+                            append("\n")
+
+                            withStyle(
+                                SpanStyle(
+                                    fontStyle = FontStyle.Italic,
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            ) {
+                                append(domainName)
+                            }
+                            append(" - ")
+                            withStyle(
+                                SpanStyle(
+                                    fontStyle = FontStyle.Italic,
+                                    fontWeight = FontWeight.Bold.takeIf { domainPhrase.isEmpty() },
+                                    color = MaterialTheme.colorScheme.error
+                                )
+                            ) {
+                                append(domainPhrase.ifEmpty {
+                                    stringResource(MR.strings.account_default_label)
+                                })
+                            }
+                            append("\n")
+                            append(stringResource(MR.strings.delete_account_long_message_2))
+                        })
+                    } else {
+                        Text(stringResource(MR.strings.delete_account_short_message))
+                    }
+                },
+                onDismissRequest = { deletePopup = false },
+                dismissButton = {
+                    TextButton(
+                        onClick = { deletePopup = false }
+                    ) { Text(stringResource(MR.strings.delete_account_cancel)) }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            if (screenModel.canDelete) {
+                                screenModel.deleteCurrent()
+                            }
+                            deletePopup = false
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                    ) { Text(stringResource(MR.strings.delete_account_confirm)) }
+                },
+                icon = { Icon(
+                    AppIcons.Delete,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error
+                ) }
+            )
+        }
     }
 
     @Composable
@@ -436,19 +489,8 @@ class MainScreen: Screen {
         )
     }
 
-    /**
-     * Convenience method for appending domain phrases whilst taking the empty-phrase
-     * case into account consistently.
-     */
     @Composable
-    private fun AnnotatedString.Builder.appendDomainPhrase(domainPhrase: String) {
-        if (domainPhrase.isEmpty()) {
-            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                append(stringResource(MR.strings.account_default_label))
-            }
-        } else {
-            append(domainPhrase)
-        }
+    private fun Int.fromPixelsToDp() = with (LocalDensity.current) {
+        this@fromPixelsToDp.toDp()
     }
-
 }
