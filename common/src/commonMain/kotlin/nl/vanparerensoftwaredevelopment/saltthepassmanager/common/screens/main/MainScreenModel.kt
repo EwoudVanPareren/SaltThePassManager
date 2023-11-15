@@ -4,7 +4,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.text.AnnotatedString
 import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -54,7 +54,7 @@ class MainScreenModel(
     init {
         appConfig.updates.onEach {
             config = it
-        }.launchIn(coroutineScope)
+        }.launchIn(screenModelScope)
 
         // Ensure that length doesn't exceed the hasher's max
         snapshotFlow {
@@ -66,7 +66,7 @@ class MainScreenModel(
             }
         }.filterNotNull().onEach {
             length = it
-        }.launchIn(coroutineScope)
+        }.launchIn(screenModelScope)
 
         snapshotFlow {
             try {
@@ -87,7 +87,7 @@ class MainScreenModel(
             }
         }.onEach {
             output = it
-        }.launchIn(coroutineScope)
+        }.launchIn(screenModelScope)
 
         snapshotFlow {
             (!config.keepMasterPasswordOnClearForm && masterPassword.isNotEmpty())
@@ -99,22 +99,21 @@ class MainScreenModel(
                     || hasher != Hashers.default
         }.onEach {
             canFormBeCleared = it
-        }.launchIn(coroutineScope)
+        }.launchIn(screenModelScope)
 
-        val domainNames = snapshotFlow {
-            domainName
-        }
+        val domainNames = snapshotFlow { domainName }
+
         domainNames.flatMapLatest { start ->
             storedAccountsService.suggestedDomainsFor(start)
         }.onEach {
             domainNameSuggestions = it
-        }.launchIn(coroutineScope)
+        }.launchIn(screenModelScope)
 
         domainNames.flatMapLatest { domain ->
             storedAccountsService.getAccountsFor(domain)
         }.onEach {
             domainPhraseSuggestions = it
-        }.launchIn(coroutineScope)
+        }.launchIn(screenModelScope)
 
         snapshotFlow {
             StoredAccount(
@@ -143,7 +142,7 @@ class MainScreenModel(
             canUpdate = it == CurrentStoredState.KEY_MATCH
             canDelete = it == CurrentStoredState.KEY_MATCH
                     || it == CurrentStoredState.FULL_MATCH
-        }.launchIn(coroutineScope)
+        }.launchIn(screenModelScope)
     }
 
     fun clickedDomainNameSuggestion(suggested: DomainSuggestion) {
@@ -191,7 +190,7 @@ class MainScreenModel(
             hasher = hasher.name,
             length = length
         )
-        coroutineScope.launch {
+        screenModelScope.launch {
             storedAccountsService.add(item, AddOnSameKey.OVERWRITE)
         }
     }
@@ -201,7 +200,7 @@ class MainScreenModel(
             domainName = domainName,
             domainPhrase = domainPhrase
         )
-        coroutineScope.launch {
+        screenModelScope.launch {
             storedAccountsService.remove(key, ignoreMissing = true)
         }
     }

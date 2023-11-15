@@ -21,6 +21,7 @@ kotlin {
 
         val commonMain by getting {
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+
             dependencies {
                 api(project(":saltthepass"))
                 api(project(":storage"))
@@ -34,6 +35,7 @@ kotlin {
                 api("dev.icerock.moko:resources:0.23.0")
                 api("dev.icerock.moko:resources-compose:0.23.0")
                 api("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+                api("cafe.adriel.voyager:voyager-transitions:$voyagerVersion")
                 api("cafe.adriel.voyager:voyager-kodein:$voyagerVersion")
             }
         }

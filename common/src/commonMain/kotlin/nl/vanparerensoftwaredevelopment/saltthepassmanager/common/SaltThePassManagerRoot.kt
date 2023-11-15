@@ -2,6 +2,7 @@ package nl.vanparerensoftwaredevelopment.saltthepassmanager.common
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.transitions.SlideTransition
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.screens.main.MainScreen
 import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.theme.SaltThePassManagerTheme
 
@@ -11,7 +12,9 @@ import nl.vanparerensoftwaredevelopment.saltthepassmanager.common.theme.SaltTheP
 @Composable
 fun SaltThePassManagerRoot() {
     SaltThePassManagerTheme {
-        Navigator(MainScreen())
+        Navigator(MainScreen()) { navigator ->
+            SlideTransition(navigator)
+        }
     }
 }
 

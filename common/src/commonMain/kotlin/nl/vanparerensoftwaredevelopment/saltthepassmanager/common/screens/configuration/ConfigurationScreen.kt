@@ -1,5 +1,8 @@
 package nl.vanparerensoftwaredevelopment.saltthepassmanager.common.screens.configuration
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.filled.ArrowBack
@@ -8,6 +11,7 @@ import androidx.compose.material.icons.filled.BrightnessHigh
 import androidx.compose.material.icons.filled.BrightnessLow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -87,6 +91,59 @@ class ConfigurationScreen: Screen {
                 }
             )
 
+            if (screenModel.showTrayOptions) {
+                ListItem(
+                    headlineContent = { Text(stringResource(MR.strings.config_enable_tray_icon_label)) },
+                    trailingContent = {
+                        Checkbox(
+                            checked = screenModel.enableTrayIcon,
+                            onCheckedChange = { screenModel.changeEnableTrayIcon(it) }
+                        )
+                    }
+                )
+                AnimatedVisibility(
+                    visible = screenModel.enableTrayIcon,
+                    enter = expandVertically(
+                        expandFrom = Alignment.Top
+                    ),
+                    exit = shrinkVertically(
+                        shrinkTowards = Alignment.Top
+                    )
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                        ListItem(
+                            headlineContent = { Text(stringResource(MR.strings.config_close_to_tray_label)) },
+                            supportingContent = { Text(stringResource(MR.strings.config_close_to_tray_description)) },
+                            trailingContent = {
+                                Checkbox(
+                                    checked = screenModel.closeToTray,
+                                    onCheckedChange = { screenModel.changeCloseToTray(it) }
+                                )
+                            }
+                        )
+                        ListItem(
+                            headlineContent = { Text(stringResource(MR.strings.config_tray_icon_color)) },
+                            supportingContent = {
+                                Text(screenModel.trayIconColor.displayName())
+                            },
+                            trailingContent = {
+                                val current = screenModel.trayIconColor
+                                IconButton(
+                                    onClick = {
+                                        screenModel.changeTrayColor(current.nextEnumValue())
+                                    }
+                                ) {
+                                    val icon = when (current) {
+                                        Configuration.TrayIconColor.LIGHT -> AppIcons.BrightnessHigh
+                                        Configuration.TrayIconColor.DARK -> AppIcons.BrightnessLow
+                                    }
+                                    Icon(icon, contentDescription = null)
+                                }
+                            }
+                        )
+                    }
+                }
+            }
 
             Box {
                 var isOpen by remember { mutableStateOf(false) }
@@ -102,6 +159,7 @@ class ConfigurationScreen: Screen {
                         isOpen = !isOpen
                     }
                 )
+
                 DropdownMenu(
                     expanded = isOpen,
                     onDismissRequest = { isOpen = false },
@@ -129,50 +187,6 @@ class ConfigurationScreen: Screen {
                 }
             }
 
-            if (screenModel.showTrayOptions) {
-                ListItem(
-                    headlineContent = { Text(stringResource(MR.strings.config_enable_tray_icon_label)) },
-                    trailingContent = {
-                        Checkbox(
-                            checked = screenModel.enableTrayIcon,
-                            onCheckedChange = { screenModel.changeEnableTrayIcon(it) }
-                        )
-                    }
-                )
-
-                if (screenModel.enableTrayIcon) {
-                    ListItem(
-                        headlineContent = { Text(stringResource(MR.strings.config_close_to_tray_label)) },
-                        supportingContent = { Text(stringResource(MR.strings.config_close_to_tray_description)) },
-                        trailingContent = {
-                            Checkbox(
-                                checked = screenModel.closeToTray,
-                                onCheckedChange = { screenModel.changeCloseToTray(it) }
-                            )
-                        }
-                    )
-                    ListItem(
-                        headlineContent = { Text(stringResource(MR.strings.config_tray_icon_color)) },
-                        supportingContent = {
-                            Text(screenModel.trayIconColor.displayName())
-                        },
-                        trailingContent = {
-                            val current = screenModel.trayIconColor
-                            IconButton(
-                                onClick = {
-                                    screenModel.changeTrayColor(current.nextEnumValue())
-                                }
-                            ) {
-                                val icon = when (current) {
-                                    Configuration.TrayIconColor.LIGHT -> AppIcons.BrightnessHigh
-                                    Configuration.TrayIconColor.DARK -> AppIcons.BrightnessLow
-                                }
-                                Icon(icon, contentDescription = null)
-                            }
-                        }
-                    )
-                }
-            }
             Box {
                 var isOpen by remember { mutableStateOf(false) }
                 val currentDensity = screenModel.density
@@ -187,6 +201,7 @@ class ConfigurationScreen: Screen {
                         isOpen = !isOpen
                     }
                 )
+
                 DropdownMenu(
                     expanded = isOpen,
                     onDismissRequest = { isOpen = false },
