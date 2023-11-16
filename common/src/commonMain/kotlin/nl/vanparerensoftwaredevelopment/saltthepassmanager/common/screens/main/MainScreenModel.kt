@@ -48,8 +48,9 @@ class MainScreenModel(
     var canFormBeCleared by mutableStateOf(false)
 
     var canSave by mutableStateOf(false)
-    var canUpdate by mutableStateOf(false)
     var canDelete by mutableStateOf(false)
+
+    var isCurrentAccountNew by mutableStateOf(true)
 
     init {
         appConfig.updates.onEach {
@@ -139,9 +140,11 @@ class MainScreenModel(
             }
         }.onEach {
             canSave = it == CurrentStoredState.NO_MATCH
-            canUpdate = it == CurrentStoredState.KEY_MATCH
+                    || it == CurrentStoredState.KEY_MATCH
             canDelete = it == CurrentStoredState.KEY_MATCH
                     || it == CurrentStoredState.FULL_MATCH
+            isCurrentAccountNew = it == CurrentStoredState.NO_MATCH
+                    || it == CurrentStoredState.INCOMPLETE_KEY
         }.launchIn(screenModelScope)
     }
 
