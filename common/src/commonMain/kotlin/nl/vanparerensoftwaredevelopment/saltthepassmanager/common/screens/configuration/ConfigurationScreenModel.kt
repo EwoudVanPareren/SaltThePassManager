@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
@@ -71,7 +71,7 @@ class ConfigurationScreenModel(
     init {
         appConfig.updates.onEach { config ->
             extractors.onEach { it(config) }
-        }.launchIn(coroutineScope)
+        }.launchIn(screenModelScope)
     }
 
     /**
@@ -90,7 +90,7 @@ class ConfigurationScreenModel(
         operator fun getValue(thisRef: Any?, property: KProperty<*>): T = state
 
         fun change(value: T) {
-            coroutineScope.launch {
+            screenModelScope.launch {
                 try {
                     appConfig.update {
                         it.updater(value)

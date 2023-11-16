@@ -1,5 +1,8 @@
 package nl.vanparerensoftwaredevelopment.saltthepassmanager.common.screens.main
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.filled.*
@@ -244,7 +247,15 @@ class MainScreen: Screen {
                 HelpDot(text = stringResource(MR.strings.accounts_help))
             }
 
-            if (showAdvanced) {
+            AnimatedVisibility(
+                visible = showAdvanced,
+                enter = expandVertically(
+                    expandFrom = Alignment.Top
+                ),
+                exit = shrinkVertically(
+                    shrinkTowards = Alignment.Top
+                )
+            ) {
                 MaybeRow(
                     useRow = (windowWidthClass >= WindowWidthClass.MEDIUM),
                     horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -360,7 +371,16 @@ class MainScreen: Screen {
                 }
             }
 
-            if (showAdvanced) {
+
+            AnimatedVisibility(
+                visible = showAdvanced,
+                enter = expandVertically(
+                    expandFrom = Alignment.Bottom
+                ),
+                exit = shrinkVertically(
+                    shrinkTowards = Alignment.Bottom
+                )
+            ) {
                 var hashMenuOpened by remember { mutableStateOf(false) }
 
                 FlowRow {
