@@ -11,7 +11,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.soywiz.korlibs.korio:korio:4.0.2")
                 implementation("org.bouncycastle:bcprov-jdk18on:1.77")
             }
         }
