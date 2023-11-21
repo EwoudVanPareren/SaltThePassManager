@@ -1,9 +1,5 @@
 package nl.vanparerensoftwaredevelopment.saltthepassmanager.saltthepass
 
-//import org.kotlincrypto.hash.md.MD5
-//import org.kotlincrypto.hash.sha1.SHA1
-//import org.kotlincrypto.hash.sha2.SHA512
-//import org.kotlincrypto.hash.sha3.*
 import org.bouncycastle.jcajce.provider.digest.*
 
 /**
