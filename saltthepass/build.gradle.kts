@@ -12,11 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("com.soywiz.korlibs.korio:korio:4.0.2")
-                implementation(platform("org.kotlincrypto.hash:bom:0.3.0"))
-                implementation("org.kotlincrypto.hash:md")
-                implementation("org.kotlincrypto.hash:sha1")
-                implementation("org.kotlincrypto.hash:sha2")
-                implementation("org.kotlincrypto.hash:sha3")
+                implementation("org.bouncycastle:bcprov-jdk18on:1.77")
             }
         }
         val commonTest by getting {

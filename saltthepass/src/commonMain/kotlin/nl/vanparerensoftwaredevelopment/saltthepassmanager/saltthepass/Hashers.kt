@@ -1,22 +1,23 @@
 package nl.vanparerensoftwaredevelopment.saltthepassmanager.saltthepass
 
-import org.kotlincrypto.hash.md.MD5
-import org.kotlincrypto.hash.sha1.SHA1
-import org.kotlincrypto.hash.sha2.SHA512
-import org.kotlincrypto.hash.sha3.*
+//import org.kotlincrypto.hash.md.MD5
+//import org.kotlincrypto.hash.sha1.SHA1
+//import org.kotlincrypto.hash.sha2.SHA512
+//import org.kotlincrypto.hash.sha3.*
+import org.bouncycastle.jcajce.provider.digest.*
 
 /**
  * Hashing functions that can be used for generating passwords.
  */
 object Hashers {
     val md5 = Hasher("MD5", 20) {
-        MD5().digest(it.encodeToByteArray())
+        MD5.Digest().digest(it.encodeToByteArray())
     }
     val sha1 = Hasher("SHA-1", 26) {
-        SHA1().digest(it.encodeToByteArray())
+        SHA1.Digest().digest(it.encodeToByteArray())
     }
     val sha2 = Hasher("SHA-2", 86) {
-        SHA512().digest(it.encodeToByteArray())
+        SHA512.Digest().digest(it.encodeToByteArray())
     }
 
     /**
@@ -31,17 +32,19 @@ object Hashers {
      * algorithm listed as SHA-3.
      */
     val keccak512 = Hasher("Keccak512", 86) {
-        Keccak512().digest(it.encodeToByteArray())
+        Keccak.Digest512().digest(it.encodeToByteArray())
     }
 
     val sha3 = Hasher("SHA-3", 86) {
-        SHA3_512().digest(it.encodeToByteArray())
+        SHA3.Digest512().digest(it.encodeToByteArray())
     }
 
-    // TODO: Add RIPEMD-160 so it
+    val ripemd160 = Hasher("RIPEMD-160", 27) {
+        RIPEMD160.Digest().digest(it.encodeToByteArray())
+    }
 
     val default = keccak512
 
-    val all = listOf(md5, sha1, sha2, sha3, keccak512)
+    val all = listOf(md5, sha1, sha2, sha3, keccak512, ripemd160)
     val byName = all.associateBy { it.name }
 }
