@@ -53,23 +53,28 @@ internal class SaltThePassTest {
         )
 
         assertEquals(
-            expected = "I4CVJEONsHU4mpz4D20T0mTP-LDDGaz4uw2eHEYx",
+            expected = "UhiQ5ciCKZ1J7GywfGHz",
+            actual = SaltThePass.hash(
+                masterPassword = "Lorem ipsum dolor sit amet",
+                domainName = "github.com",
+                domainPhrase = "WorkAccountUserName",
+                length = 20,
+                hasher = Hashers.sha2
+            ),
+            message = "Generated password does not match with SaltThePass.com on SHA-2"
+        )
+
+        assertEquals(
+            expected = "cFskeEN0vC5BVPZJ-W9J1IdtZ",
             actual = SaltThePass.hash(
                 masterPassword = "Ut enim ad minim veniam",
                 domainName = "account.jetbrains.com",
                 domainPhrase = "example@example.com",
-                length = 40,
-                /*
-                 * Due to some historical confusion, what is listed
-                 * as "SHA-3" on SaltThePass.com is actually Keccak512,
-                 * so we're using Keccak512 here.
-                 */
-                hasher = Hashers.keccak512
+                length = 25,
+                hasher = Hashers.ripemd160
             ),
-            message = "Generated password does not match with SaltThePass.com on Keccak512 (\"SHA-3\" on SaltThePass.com)"
+            message = "Generated password does not match with SaltThePass.com on RIPEMD-160"
         )
-
-        // TODO: Add RIPEMD-160 test once that hash function is supported
     }
 
 

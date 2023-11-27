@@ -1,6 +1,6 @@
 package nl.vanparerensoftwaredevelopment.saltthepassmanager.saltthepass
 
-import korlibs.crypto.encoding.toBase64
+import nl.vanparerensoftwaredevelopment.saltthepassmanager.saltthepass.ext.toUrlBase64String
 
 /**
  * Access to the SaltThePass functionality.
@@ -29,7 +29,7 @@ object SaltThePass {
 
         val hashed = hasher.hash(
             masterPassword + domainName + domainPhrase + versionName
-        ).toBase64(url = true).replace("=", "")
+        ).toUrlBase64String().replace("=", "")
 
         return hashed.take(realLength) + appendSpecial
     }
